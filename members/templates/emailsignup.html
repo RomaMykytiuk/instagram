@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реєстрація • Instagram</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 350px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .container h1 {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 40px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .button-facebook {
+            background-color: #4267B2;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .separator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        .separator div {
+            height: 1px;
+            background: #ddd;
+            flex: 1;
+        }
+        .separator span {
+            margin: 0 10px;
+            font-size: 12px;
+            color: #999;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .submit-button {
+            background-color: #3897f0;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .info-text {
+            font-size: 12px;
+            color: #999;
+            margin-top: 15px;
+            line-height: 1.5;
+        }
+        .info-text a {
+            color: #00376b;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Instagram</h1>
+        <button class="button-facebook">Увійти через Facebook</button>
+        <div class="separator">
+            <div></div>
+            <span>АБО</span>
+            <div></div>
+        </div>
+        <form action="/register" method="POST">
+            <input type="text" name="email_or_phone" placeholder="Номер мобільного телефону або електронна пошта" required>
+            <input type="password" name="password" placeholder="Пароль" required>
+            <input type="text" name="full_name" placeholder="Повне ім’я" required>
+            <input type="text" name="username" placeholder="Ім’я користувача" required>
+            <button type="submit" class="submit-button">Зареєструватися</button>
+        </form>
+        <p class="info-text">
+            Люди, які користуються нашим сервісом, могли завантажити вашу контактну інформацію в Instagram. <a href="#">Докладніше</a>.
+        </p>
+        <p class="info-text">
+            Реєструючись, ви приймаєте наші <a href="#">Умови</a>, <a href="#">Політику конфіденційності</a> і <a href="#">Політику щодо файлів cookie</a>.
+        </p>
+    </div>
+</body>
+</html>
