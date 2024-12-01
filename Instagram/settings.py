@@ -53,11 +53,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Instagram.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # або шлях до папки шаблонів вашого додатка
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

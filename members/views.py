@@ -3,21 +3,15 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 
 def members(request):
     template = loader.get_template('myfirst.html')
     return HttpResponse(template.render())
 
-
 def emailsignup(request):
-    return HttpResponse(loader.get_template('emailsignup.html').render())
-
-#views.py
-
-
-def register(request):
     if request.method == "POST":
-        username = request.POST.get("username")
+        email = request.POST.get("email")
         password = request.POST.get("password")
         confirm_password = request.POST.get("confirm_password")
 
@@ -25,15 +19,24 @@ def register(request):
             messages.error(request, "Passwords do not match")
             return redirect('register')
 
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(email=email).exists():
             messages.error(request, "Username already exists!")
             return redirect('register')
 
-        User.objects.create_user(username, password)
+        User.objects.create_user(email, password)
         messages.success(request, 'Account created!')
-        # return redirect("user_page")
-    return render(request, "register.html")
+    return render(request, "emailsignup.html")
 
 
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        if username == 'test' and password == 'password123':
+            return HttpResponse("Ви успішно увійшли!")
+        else:
+            return HttpResponse("Невірний логін або пароль!")
+    return render(request, 'login.html')
 
 
