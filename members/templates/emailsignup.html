@@ -104,7 +104,8 @@
             <span>АБО</span>
             <div></div>
         </div>
-        <form action="/register" method="POST">
+        <form action="{% url 'emailsingup'%}" method="POST">
+            {% csrf_token %}
             <input type="text" name="email" placeholder="електронна пошта" required>
             <input type="password" name="password" placeholder="Пароль" required>
             <input type="password" name="confirm_password" placeholder="Підтвердження пароля" required>
