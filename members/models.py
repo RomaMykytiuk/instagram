@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django import forms
+from django.db import models
 
 
 # Create your models here.
@@ -38,3 +40,15 @@ class Image(models.Model):
 class PostTag(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name="post_tags")
     tag = models.ForeignKey('Tag', on_delete=models.CASCADE, related_name="post_tags")
+
+
+
+class Profile(models.Model):
+    posts = models.IntegerField(default=0)
+    followers = models.IntegerField(default=0)
+    following = models.IntegerField(default=0)
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['posts', 'followers', 'following']

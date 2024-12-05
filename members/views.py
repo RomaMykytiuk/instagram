@@ -1,9 +1,14 @@
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.hashers import make_password
+from django.shortcuts import render, redirect
+from .models import Profile
+from .forms import ProfileForm
+
+
+
 
 from .models import User
 
@@ -44,3 +49,20 @@ def login_view(request):
     return render(request, 'login.html')
 
 
+
+
+def profile_view(request):
+    # Отримати перший профіль із бази або створити новий
+    profile, created = Profile.objects.get_or_create(id=1)
+
+    if request.method == 'POST':
+        # Передати існуючий профіль у форму
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()  # Зберегти зміни
+            return redirect('profile')  # Перенаправлення на ту ж сторінку
+    else:
+        # Завантажити форму з існуючими даними профілю
+        form = ProfileForm(instance=profile)
+
+    return render(request, 'profile.html', {'form': form, 'profile': profile})
