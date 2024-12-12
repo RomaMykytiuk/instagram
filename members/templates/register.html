@@ -104,12 +104,9 @@
             <span>АБО</span>
             <div></div>
         </div>
-        <form action="{% url 'emailsingup'%}" method="POST">
+        <form action="{% url 'register'%}" method="POST">
             {% csrf_token %}
-            <input type="text" name="email" placeholder="електронна пошта" required>
-            <input type="password" name="password" placeholder="Пароль" required>
-            <input type="password" name="confirm_password" placeholder="Підтвердження пароля" required>
-            <input type="text" name="full_name" placeholder="Повне ім’я" required>
+            {{form.as_p}}
             <button type="submit" class="submit-button">Зареєструватися</button>
         </form>
         <p class="info-text">
