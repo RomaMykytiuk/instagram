@@ -8,6 +8,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import LoginForm
 from django.contrib.auth import login
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .forms import ProfileEditForm
+from .models import User
 
 
 def members(request):
@@ -65,3 +69,19 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
+
+
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Error updating your profile.')
+    else:
+        form = ProfileEditForm(instance=request.user)
+    return render(request, 'edit_profile.html', {'form': form})

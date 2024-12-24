@@ -10,7 +10,8 @@
 <body>
     <div class="login-container">
         <h1>Instagram</h1>
-        <form action="/login" method="post">
+        <form action="{% url 'login'%}" method="post">
+            {% csrf_token %}
             <input type="text" name="username" placeholder="Номер телефону, ім'я користувача або ел. пошта" required>
             <input type="password" name="password" placeholder="Пароль" required>
             <button type="submit">Увійти</button>

@@ -3,6 +3,7 @@ from .models import User
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 
+
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
@@ -52,6 +53,15 @@ class LoginForm(forms.Form):
         return cleaned_data
 
 
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['full_name', 'bio', 'avatar']
+        widgets = {
+            'full_name': forms.TextInput(attrs={'placeholder': 'Full Name'}),
+            'bio': forms.Textarea(attrs={'placeholder': 'Bio'}),
+            'avatar': forms.ClearableFileInput(),
+        }
 
 
 
