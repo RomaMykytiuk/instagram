@@ -10,8 +10,8 @@ from .forms import LoginForm
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import ProfileEditForm
-from .models import User
+from django.contrib.auth.decorators import login_required
+
 
 
 def members(request):
@@ -64,24 +64,14 @@ def login_view(request):
             user = form.user
             login(request, user)
             messages.success(request,"Ви успішно Увійшли!")
-            return redirect("members")
+            return redirect('profile')
         else: messages.error(request,"Помилка")
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
 
-
-
-def edit_profile(request):
-    if request.method == 'POST':
-        form = ProfileEditForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile updated successfully!')
-            return redirect('profile')
-        else:
-            messages.error(request, 'Error updating your profile.')
-    else:
-        form = ProfileEditForm(instance=request.user)
-    return render(request, 'edit_profile.html', {'form': form})
+@login_required
+def show_profile(request):
+    user = request.user
+    return render(request, 'profile.html',{'user': user})
