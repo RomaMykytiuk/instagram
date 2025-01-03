@@ -75,3 +75,22 @@ def login_view(request):
 def show_profile(request):
     user = request.user
     return render(request, 'profile.html',{'user': user})
+
+
+
+
+def home_view(request):
+    posts = [
+        {
+            'username': 'Григорій',
+            'likes': 152,
+            'caption': 'Природа України!😍'
+        },
+        {
+            'username': 'Данило',
+            'likes': 1756,
+            'caption': 'Я найкращий вчитель Романа!'
+        }
+        # Додайте більше постів тут
+    ]
+    return render(request, 'home.html', {'posts': posts})

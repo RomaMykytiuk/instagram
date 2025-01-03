@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Home</title>
+    <link rel="stylesheet" href="{% static 'home_styles.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="location.href='{% url 'profile' %}'">🏠</button>
+        <button onclick="location.href='{% url 'profile' %}'">🔍</button>
+        <button onclick="location.href='{% url 'profile' %}'">➕</button>
+        <button onclick="location.href='{% url 'profile' %}'">❤️</button>
+        <button onclick="location.href='{% url 'profile' %}'">👤</button>
+<!--        <div class="navbar-icon">🏠</div>-->
+<!--        <div class="navbar-icon">🔍</div>-->
+<!--        <div class="navbar-icon">➕</div>-->
+<!--        <div class="navbar-icon">❤️</div>-->
+<!--        <div class="navbar-icon">👤</div>-->
+    </div>
+
+    <div class="feed-container">
+        {% for post in posts %}
+        <div class="post">
+            <div class="post-header">
+                <div class="profile-pic">
+                    <img src="{% static 'images/avatar.png' %}" alt="Profile Picture">
+                </div>
+                <div class="username">{{ post.username }}</div>
+            </div>
+            <div class="post-image">
+                <img src="{% static 'images/img.png' %}" alt="Post Image">
+            </div>
+            <div class="post-footer">
+                <div class="actions">
+                    <div class="like">❤️</div>
+                    <div class="comment">💬</div>
+                    <div class="share">📤</div>
+                </div>
+                <div class="likes">{{ post.likes }} likes</div>
+                <div class="caption">{{ post.caption }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+
