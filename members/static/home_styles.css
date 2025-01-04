@@ -4,25 +4,20 @@ body {
     padding: 0;
     background: #fafafa;
 }
-
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #fff;
-    border-bottom: 1px solid #ddd;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    background-color: #fff;
     padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-icon {
+.navbar button {
+    background: none;
+    border: none;
     font-size: 24px;
     cursor: pointer;
 }
-
 .feed-container {
     margin-top: 60px;
     padding: 20px;

@@ -6,6 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram Home</title>
     <link rel="stylesheet" href="{% static 'home_styles.css' %}">
+    <script>
+        function toggleLike(button) {
+            const postId = button.getAttribute('data-post-id');
+            const likesElement = document.getElementById(`likes-${postId}`);
+            let likes = parseInt(likesElement.innerText);
+
+            if (button.classList.contains('liked')) {
+                likes -= 1;
+                button.classList.remove('liked');
+            } else {
+                likes += 1;
+                button.classList.add('liked');
+            }
+
+            likesElement.innerText = `${likes} likes`;
+        }
+    </script>
+    <style>
+        .liked {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div class="navbar">
@@ -14,13 +36,7 @@
         <button onclick="location.href='{% url 'profile' %}'">➕</button>
         <button onclick="location.href='{% url 'profile' %}'">❤️</button>
         <button onclick="location.href='{% url 'profile' %}'">👤</button>
-<!--        <div class="navbar-icon">🏠</div>-->
-<!--        <div class="navbar-icon">🔍</div>-->
-<!--        <div class="navbar-icon">➕</div>-->
-<!--        <div class="navbar-icon">❤️</div>-->
-<!--        <div class="navbar-icon">👤</div>-->
     </div>
-
     <div class="feed-container">
         {% for post in posts %}
         <div class="post">
@@ -35,11 +51,11 @@
             </div>
             <div class="post-footer">
                 <div class="actions">
-                    <div class="like">❤️</div>
+                    <div class="like" data-post-id="{{ forloop.counter }}" onclick="toggleLike(this)">❤️</div>
                     <div class="comment">💬</div>
                     <div class="share">📤</div>
                 </div>
-                <div class="likes">{{ post.likes }} likes</div>
+                <div class="likes" id="likes-{{ forloop.counter }}">{{ post.likes }} likes</div>
                 <div class="caption">{{ post.caption }}</div>
             </div>
         </div>
@@ -47,5 +63,3 @@
     </div>
 </body>
 </html>
-
-
