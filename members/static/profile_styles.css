@@ -75,22 +75,24 @@ body {
 
 .posts-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px; /* Це налаштовує відстань між фотографіями */
     max-width: 900px;
     margin: 0 auto;
 }
 
-.post img {
+.post {
+    position: relative;
     width: 100%;
-    border-radius: 10px;
-    object-fit: cover;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding-top: 100%; /* Це налаштовує висоту поста */
 }
 
-.post p {
-    text-align: center;
-    margin-top: 5px;
-    color: #262626;
-    font-size: 14px;
+.post img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%; /* Це налаштовує ширину зображення */
+    height: 90%; /* Це налаштовує висоту зображення */
+    object-fit: cover; /* Це забезпечує, що зображення буде чітко вписуватись в квадратик */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

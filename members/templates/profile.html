@@ -1,52 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    {% load static %}-->
-<!--    <link rel="stylesheet" href="{% static 'profile_styles.css' %}">-->
-<!--    <title>Profile</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--    <nav class="navbar">-->
-<!--        <button onclick="location.href='{% url 'home' %}'">🏠</button>-->
-<!--        <button onclick="location.href='{% url 'home' %}'">🔍</button>-->
-<!--        <button onclick="location.href='{% url 'home' %}'">➕</button>-->
-<!--        <button onclick="location.href='{% url 'home' %}'">❤️</button>-->
-<!--        <button onclick="location.href='{% url 'profile' %}'">👤</button>-->
-<!--    </nav>-->
-<!--    <div class="profile-container">-->
-<!--        <div class="avatar">-->
-<!--            <img src="{% static 'images/img_1.png' %}" alt="Profile Avatar">-->
-<!--        </div>-->
-<!--        <h1>{{ user.email }}</h1>-->
-<!--        <h1>{{ user.bio }}</h1>-->
-<!--        <h1>{{ user.full_name }}</h1>-->
-<!--        <h2>{{ user.like }}</h2>-->
-<!--        <h2>{{ user.subscribers }}</h2>-->
-<!--    </div>-->
-<!--    <div class="posts-container">-->
-<!--        <div class="post">-->
-<!--            <img src="{% static 'images/img_3.png' %}" alt="Post Image">-->
-<!--            <p>Луцьк (МФА: [ɫut͡sʲk] ( прослухати)) — місто обласного значення на заході України, обласний центр Волинської області, адміністративний центр Луцького району та Луцької міської громади. Історичний, релігійний, політичний, освітній, промисловий та економічний центр Волині.</p>-->
-<!--            <p>❤️ 1000</p>-->
-<!--        </div>-->
-<!--        <div class="post">-->
-<!--            <img src="{% static 'images/img_4.png' %}" alt="Post Image">-->
-<!--            <p>Почніть роботу-->
-<!--Незалежно від того, чи ви новачок у програмуванні, чи досвідчений розробник, вивчити та використовувати Python легко.-->
-<!--Почніть із нашого посібника для початківців</p>-->
-<!--            <p>❤️ 213</p>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Add more posts as needed &ndash;&gt;-->
-<!--        <div class="post">-->
-<!--            <img src="{% static 'images/img.png' %}" alt="Post Image">-->
-<!--            <p>природа</p>-->
-<!--            <p>❤️ 432</p>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</body>-->
-<!--</html>-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'profile_styles.css' %}">
+
     <title>Profile</title>
 </head>
 <body>
@@ -83,16 +35,14 @@
     <div class="posts-container">
         <div class="post">
             <img src="{% static 'images/img_3.png' %}" alt="Post Image">
-            <p>❤️ 1000</p>
         </div>
         <div class="post">
             <img src="{% static 'images/img.png' %}" alt="Post Image">
-            <p>❤️ 213</p>
         </div>
         <div class="post">
             <img src="{% static 'images/img_4.png' %}" alt="Post Image">
-            <p>❤️ 432</p>
         </div>
+        <!-- Додайте більше постів тут -->
     </div>
 </body>
 </html>
