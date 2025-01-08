@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" href="{% static 'search_styles.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="location.href='{% url 'home' %}'">🏠</button>
+        <button onclick="location.href='{% url 'search' %}'">🔍</button>
+        <button onclick="location.href='{% url 'create_post' %}'">➕</button>
+        <button onclick="location.href='{% url 'notifications' %}'">❤️</button>
+        <button onclick="location.href='{% url 'profile' %}'">👤</button>
+    </div>
+    <div class="search-container">
+        <h1>Search Page</h1>
+        <form method="get" action="{% url 'search' %}">
+            <input type="text" name="q" value="{{ query }}" placeholder="Search...">
+            <button type="submit" class="btn">Search</button>
+        </form>
+        <ul class="results">
+            {% for result in results %}
+                <li>{{ result }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

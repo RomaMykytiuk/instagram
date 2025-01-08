@@ -1,21 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
     <link rel="stylesheet" href="{% static 'profile_styles.css' %}">
-
     <title>Profile</title>
 </head>
 <body>
-    <nav class="navbar">
+    <div class="navbar">
         <button onclick="location.href='{% url 'home' %}'">🏠</button>
-        <button onclick="location.href='{% url 'home' %}'">🔍</button>
-        <button onclick="location.href='{% url 'home' %}'">➕</button>
-        <button onclick="location.href='{% url 'home' %}'">❤️</button>
+        <button onclick="location.href='{% url 'search' %}'">🔍</button>
+        <button onclick="location.href='{% url 'create_post' %}'">➕</button>
+        <button onclick="location.href='{% url 'notifications' %}'">❤️</button>
         <button onclick="location.href='{% url 'profile' %}'">👤</button>
-    </nav>
+    </div>
     <div class="profile-container">
         <div class="header">
             <div class="avatar">

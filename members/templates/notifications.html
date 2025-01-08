@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="{% static 'notifications_styles.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <button onclick="location.href='{% url 'home' %}'">🏠</button>
+        <button onclick="location.href='{% url 'search' %}'">🔍</button>
+        <button onclick="location.href='{% url 'create_post' %}'">➕</button>
+        <button onclick="location.href='{% url 'notifications' %}'">❤️</button>
+        <button onclick="location.href='{% url 'profile' %}'">👤</button>
+    </div>
+    <div class="notifications-container">
+        <h1>Notifications Page</h1>
+        <ul class="notifications">
+            {% for notification in notifications %}
+                <li>{{ notification }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

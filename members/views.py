@@ -1,7 +1,6 @@
 from django.template import loader
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
-from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm
 from .models import User
 from django.shortcuts import render
@@ -11,6 +10,7 @@ from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
 
 
 
@@ -94,3 +94,41 @@ def home_view(request):
         # Додайте більше постів тут
     ]
     return render(request, 'home.html', {'posts': posts})
+
+
+
+
+def create_post_view(request):
+    if request.method == 'POST':
+        # Логіка для створення поста
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        # Збережіть пост у вашій базі даних
+        ...
+        return redirect('home')
+    context = {}
+    return render(request, 'create_post.html', context)
+
+
+
+def search_view(request):
+    # Логіка для пошуку
+    query = request.GET.get('q')
+    results = []
+    if query:
+        # Виконайте пошук у вашій базі даних або іншому джерелі даних
+        results = ...  # Замість цього додайте вашу логіку пошуку
+    context = {'results': results, 'query': query}
+    return render(request, 'search.html', context)
+
+from django.shortcuts import render
+
+def notifications_view(request):
+    # Логіка для відображення сповіщень
+    notifications = [
+        'Notification 1',
+        'Notification 2',
+        'Notification 3',
+    ]
+    context = {'notifications': notifications}
+    return render(request, 'notifications.html', context)

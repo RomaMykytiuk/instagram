@@ -1,3 +1,12 @@
+:root {
+    --navbar-bg-color: #fff;
+    --navbar-padding: 10px 0;
+    --navbar-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --navbar-button-font-size: 24px;
+    --navbar-button-color: #000;
+    --navbar-button-hover-color: #007bff;
+}
+
 body {
     font-family: 'Helvetica Neue', Arial, sans-serif;
     background-color: #fafafa;
@@ -8,16 +17,21 @@ body {
 .navbar {
     display: flex;
     justify-content: space-around;
-    background-color: #fff;
-    padding: 10px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--navbar-bg-color);
+    padding: var(--navbar-padding);
+    box-shadow: var(--navbar-box-shadow);
 }
 
 .navbar button {
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: var(--navbar-button-font-size);
+    color: var(--navbar-button-color);
     cursor: pointer;
+}
+
+.navbar button:hover {
+    color: var(--navbar-button-hover-color);
 }
 
 .profile-container {
