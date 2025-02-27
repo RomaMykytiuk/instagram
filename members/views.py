@@ -1,17 +1,17 @@
 from django.template import loader
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
-from .forms import UserRegistrationForm
-from .models import User
+from .forms import UserRegistrationForm,LoginForm,PostForm
+from .models import Post,User,Image
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import LoginForm
+
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
-
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 
 
 def members(request):
@@ -132,3 +132,45 @@ def notifications_view(request):
     ]
     context = {'notifications': notifications}
     return render(request, 'notifications.html', context)
+
+
+# class PostCreateView(CreateView):
+#     model = Post
+#     form_class = PostForm
+#     template_name = 'create_post.html'
+#     success_url = reverse_lazy('create_post')
+#
+#     def form_valid(self, form):
+#         post = form.save(commit=False)
+#         post.author = self.request.user
+#         post.save()
+#
+#         files = form.cleaned_data.get('images')
+#
+#
+#         for f in files:
+#             Image.objects.create(post=self.object, image=f)
+#         return super().form_valid(form)
+#
+#     def form_invalid(self, form):
+#         return self.render_to_response(self.get_context_data(form=form))
+
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+
+
+            images = request.FILES.getlist('images')
+            for img in images:
+                Image.objects.create(post=post, image=img)
+
+            return redirect('home')
+        else:
+            return render(request, 'create_post.html', {'form': form})
+    else:
+        form = PostForm()
+        return render(request, 'create_post.html', {'form': form})

@@ -243,3 +243,78 @@
 # print(is_even(4))
 
 
+#
+# grades = {"Anna": 85, "Boris": 90, "Viktor": 78}
+# name = input("Введіть ім'я учня: ")
+# score = int(input("Введіть нову оцінку: "))
+# grades[name] = score
+# print("Оновлений список оцінок:", grades)
+#
+#
+# key = {"apple": "red", "banana": "yellow", "grape": "purple"}
+# name = input("Введіть назву фрукта: ").lower()
+# if name in key:
+#     print(f"Колір {name}: {key[name]}")
+# else:
+#     print("Фрукт не знайдено.")
+
+class Car:
+    def __init__(self, brand, color):
+        self.brand = brand
+        self.color = color
+        self.speed = 0
+
+    def start(self):
+        print("Машина поїхала!")
+
+    def accelerate(self, value):
+        self.speed += value
+
+    def brake(self):
+        self.speed = 0
+
+my_car = Car("Tesla", "червона")
+my_car.start()
+my_car.accelerate(50)
+print("Швидкість:", my_car.speed)
+my_car.brake()
+print("Швидкість після гальмування:", my_car.speed)
+
+
+class Student:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+        self.grade = 0
+
+    def study(self):
+        print(f"Учень {self.name} вчиться!")
+
+    def set_grade(self, grade):
+        self.grade = grade
+
+student1 = Student("Олег", 10)
+student1.study()
+student1.set_grade(12)
+print("Оцінка:", student1.grade)
+
+class Cat:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+        self.hunger = 5
+    def meow(self):
+        print(f"Мяу! Мене звати {self.name}!")
+
+    def eat(self):
+        self.hunger = max(0, self.hunger - 2)
+
+    def play(self):
+        self.hunger += 3
+
+my_cat = Cat("Барсик", 3)
+my_cat.meow()
+my_cat.play()
+print("Рівень голоду:", my_cat.hunger)
+my_cat.eat()
+print("Рівень голоду після їжі:", my_cat.hunger)

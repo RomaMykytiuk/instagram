@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User,Post
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 
@@ -51,5 +51,36 @@ class LoginForm(forms.Form):
             raise ValidationError('невірний емаіл або пароль')
         self.user = user
         return cleaned_data
+
+
+class MultipleFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+class MultipleFiledField(forms.FileField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('widget', MultipleFileInput())
+        super().__init__(*args, **kwargs)
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data,(list, tuple)):
+            result = [single_file_clean(d, initial) for d in data]
+        else:
+            result = [single_file_clean(data, initial)]
+        return result
+
+class PostForm(forms.ModelForm):
+    caption = forms.CharField(
+        required=True,
+        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Напишіть щось...'})
+
+    )
+    images = forms.ImageField(
+        required=False,
+        widget=forms.ClearableFileInput()
+    )
+    class Meta:
+        model = Post
+        fields = ['images','caption']
 
 
