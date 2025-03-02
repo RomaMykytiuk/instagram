@@ -42,39 +42,32 @@
         <div class="post">
             <div class="post-header">
                 <div class="profile-pic">
-                    <img src="{% static 'images/avatar.png' %}" alt="Profile Picture">
+                    {% if post.author.avatar %}
+                        <img src="{{ post.author.avatar.url }}" alt="Profile Picture">
+                    {% else %}
+                        <img src="{% static 'images/avatar.png' %}" alt="Default Profile Picture">
+                    {% endif %}
                 </div>
-                <div class="username">{{ post.username }}</div>
+                <div class="username">{{ post.author.full_name }}</div>
             </div>
             <div class="post-image">
-                <img src="{% static 'images/img.png' %}" alt="Post Image">
+                {% for image in post.images.all %}
+                    <img src="{{ image.image.url }}" alt="Post Image">
+                {% empty %}
+                    <img src="{% static 'images/img.png' %}" alt="Default Post Image">
+                {% endfor %}
             </div>
             <div class="post-footer">
                 <div class="actions">
-                    <div class="like" data-post-id="{{ forloop.counter }}" onclick="toggleLike(this)">❤️</div>
+                    <div class="like" data-post-id="{{ post.id }}" onclick="toggleLike(this)">❤️</div>
                     <div class="comment">💬</div>
                     <div class="share">📤</div>
                 </div>
-                <div class="likes" id="likes-{{ forloop.counter }}">{{ post.likes }} likes</div>
+                <div class="likes" id="likes-{{ post.id }}">{{ post.likes.count|default:1 }} likes</div>
                 <div class="caption">{{ post.caption }}</div>
             </div>
         </div>
-
         {% endfor %}
     </div>
-
-    {% for post in posts %}
-        <div class="post">
-            <div>
-               {% for image in post.images.all %}
-                    <img src="{{ image.image.url }}" alt="Post Image">
-                {% empty %}
-                    <img src="{% static 'images/img.png'%}" alt="Default Post Image">
-                {% endfor %}
-            </div>
-        </div>
-    {% endfor %}
 </body>
 </html>
-
-

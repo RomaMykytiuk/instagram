@@ -1,8 +1,7 @@
 from django import forms
-from .models import User,Post
+from .models import User, Post, Image
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
-
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
@@ -22,7 +21,6 @@ class UserRegistrationForm(forms.ModelForm):
 
         return cleaned_data
 
-
     def save(self, commit=True):
         user = super().save(commit=False)
         password = self.cleaned_data.get("password")
@@ -30,8 +28,6 @@ class UserRegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-
 
 class LoginForm(forms.Form):
     email = forms.CharField(
@@ -46,12 +42,11 @@ class LoginForm(forms.Form):
         cleaned_data = super().clean()
         email = cleaned_data.get("email")
         password = cleaned_data.get("password")
-        user = authenticate(email=email,password=password)
+        user = authenticate(email=email, password=password)
         if user is None:
             raise ValidationError('невірний емаіл або пароль')
         self.user = user
         return cleaned_data
-
 
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
@@ -63,7 +58,7 @@ class MultipleFiledField(forms.FileField):
 
     def clean(self, data, initial=None):
         single_file_clean = super().clean
-        if isinstance(data,(list, tuple)):
+        if isinstance(data, (list, tuple)):
             result = [single_file_clean(d, initial) for d in data]
         else:
             result = [single_file_clean(data, initial)]
@@ -73,7 +68,6 @@ class PostForm(forms.ModelForm):
     caption = forms.CharField(
         required=True,
         widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Напишіть щось...'})
-
     )
     images = forms.ImageField(
         required=False,
@@ -81,6 +75,4 @@ class PostForm(forms.ModelForm):
     )
     class Meta:
         model = Post
-        fields = ['images','caption']
-
-
+        fields = ['images', 'caption']

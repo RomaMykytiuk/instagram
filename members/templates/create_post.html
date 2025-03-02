@@ -21,12 +21,10 @@
         <button onclick="location.href='{% url 'profile' %}'">👤</button>
     </div>
     <div class="create-post-container" >
-
         <h1>Create Post</h1>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-
             <button type="submit" class="btn">Create Post</button>
         </form>
     </div>
