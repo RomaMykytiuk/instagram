@@ -10,5 +10,5 @@ urlpatterns = [
     path('search/', views.search_view, name='search'),
     path('create_post/', views.create_post, name='create_post'),
     path('notifications/', views.notifications_view, name='notifications'),
-
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
 ]

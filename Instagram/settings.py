@@ -30,7 +30,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL='members.User'
 
 
 # Application definition
@@ -133,4 +132,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_TAGS ={
     messages.ERROR: 'error',
     messages.SUCCESS: 'success'
+
 }
+AUTHENTICATION_BACKENDS = [
+    "members.backends.EmailOrUsernameModelBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+AUTH_USER_MODEL = "members.User"
+
+
+

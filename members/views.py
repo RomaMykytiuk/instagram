@@ -11,7 +11,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import ProfileForm
+from .models import Profile
 def members(request):
     template = loader.get_template('myfirst.html')
     return HttpResponse(template.render())
@@ -87,3 +90,43 @@ def create_post(request):
     else:
         form = PostForm()
     return render(request, 'create_post.html', {'form': form})
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import ProfileForm  # Переконайтесь, що створили цей клас форми
+
+@login_required
+def profile(request):
+    """
+    Відображає сторінку профілю користувача.
+    Припускаємо, що зв'язок профілю з користувачем встановлено за допомогою OneToOneField (request.user.profile)
+    """
+    return render(request, 'profile.html', {
+        'user': request.user,
+        'profile': request.user.profile,
+    })
+
+
+# members/views.py
+
+
+
+@login_required
+def edit_profile(request):
+    try:
+        profile_obj = request.user.profile
+    except Profile.DoesNotExist:
+        profile_obj = Profile.objects.create(user=request.user, full_name=request.user.get_username())
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile_obj)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        else:
+            print("Помилки форми:", form.errors)  # Для дебагу у консолі
+    else:
+        form = ProfileForm(instance=profile_obj)
+
+    return render(request, 'edit_profile.html', {'form': form})

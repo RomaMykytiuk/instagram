@@ -6,6 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'profile_styles.css' %}">
     <title>Profile</title>
+    <style>
+        /* Додаємо стилі для плаваючої кнопки редагування профілю */
+        .edit-profile-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .edit-profile-button button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
     <div class="navbar">
@@ -41,7 +61,12 @@
         <div class="post">
             <img src="{% static 'images/img_4.png' %}" alt="Post Image">
         </div>
-        <!-- Додайте більше постів тут -->
+        <!-- Додайте більше постів за потреби -->
+    </div>
+
+    <!-- Плаваюча кнопка редагування профілю -->
+    <div class="edit-profile-button">
+        <button onclick="location.href='{% url 'edit_profile' %}'">✏️</button>
     </div>
 </body>
 </html>

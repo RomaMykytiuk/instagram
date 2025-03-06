@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редагування профілю</title>
+    <link rel="stylesheet" href="{% static 'profile_styles.css' %}">
+    <style>
+        /* Стилі для контейнера форми редагування профілю */
+        .edit-form-container {
+            max-width: 600px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .edit-form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #262626;
+        }
+        .edit-form-container form label {
+            display: block;
+            font-weight: bold;
+            margin: 10px 0 5px;
+        }
+        .edit-form-container form input[type="text"],
+        .edit-form-container form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .edit-form-container form input[type="file"] {
+            margin-top: 5px;
+        }
+        .edit-form-container form button {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Можна додати navbar для узгодженості з іншими сторінками -->
+    <div class="navbar">
+        <button onclick="location.href='{% url 'home' %}'">🏠</button>
+        <button onclick="location.href='{% url 'search' %}'">🔍</button>
+        <button onclick="location.href='{% url 'create_post' %}'">➕</button>
+        <button onclick="location.href='{% url 'notifications' %}'">❤️</button>
+        <button onclick="location.href='{% url 'profile' %}'">👤</button>
+    </div>
+
+    <div class="edit-form-container">
+        <h1>Редагування профілю</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Виводимо форму як параграфи. За бажанням, можна виводити поля окремо -->
+            {{ form.as_p }}
+            <button type="submit">Зберегти зміни</button>
+        </form>
+    </div>
+</body>
+</html>

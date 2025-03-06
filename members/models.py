@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
+from django.db import models
+from django.conf import settings  # Імпортуємо налаштування
 
 
 
@@ -15,19 +17,21 @@ class CustomUserManager(BaseUserManager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, password, username=None,**extra_fields):
         """
         Create and save a user with the given email and password.
         """
         if not email:
             raise ValueError(_("The Email must be set"))
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        if username:
+            username=username.strip()
+        user = self.model(email=email,username=username ,**extra_fields )
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, email, password, username=None, **extra_fields):
         """
         Create and save a SuperUser with the given email and password.
         """
@@ -39,12 +43,13 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_("Superuser must have is_staff=True."))
         if extra_fields.get("is_superuser") is not True:
             raise ValueError(_("Superuser must have is_superuser=True."))
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(email, password,username, **extra_fields)
 
 
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=150, unique=True,)
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=200, blank=True)
     bio = models.CharField(max_length=500, blank=True)
@@ -69,12 +74,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['username']
 
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return self.username
 
 
 
@@ -105,5 +110,15 @@ class PostTag(models.Model):
     tag = models.ForeignKey('Tag', on_delete=models.CASCADE, related_name="post_tags")
 
 
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profile')
+    full_name = models.CharField(max_length=255)
+    bio = models.TextField(blank=True)
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
 
 

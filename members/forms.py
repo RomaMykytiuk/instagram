@@ -2,14 +2,14 @@ from django import forms
 from .models import User, Post, Image
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
-
+from .models import Profile
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ['email',]
+        fields = ['username','email']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -30,9 +30,9 @@ class UserRegistrationForm(forms.ModelForm):
         return user
 
 class LoginForm(forms.Form):
-    email = forms.CharField(
+    login = forms.CharField(
         max_length=100,
-        widget=forms.EmailInput(attrs={'placeholder': "email"})
+        widget=forms.TextInput(attrs={'placeholder': "email або username"})
     )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={'placeholder': "password"})
@@ -40,11 +40,11 @@ class LoginForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        email = cleaned_data.get("email")
+        login = cleaned_data.get("login")
         password = cleaned_data.get("password")
-        user = authenticate(email=email, password=password)
+        user = authenticate(username=login, password=password)
         if user is None:
-            raise ValidationError('невірний емаіл або пароль')
+            raise ValidationError('невірний username/email  або пароль')
         self.user = user
         return cleaned_data
 
@@ -76,3 +76,10 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['images', 'caption']
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        # Вкажіть поля, які користувач може редагувати (наприклад, опис, ім'я, зображення аватара тощо)
+        fields = ['full_name', 'bio', 'avatar']

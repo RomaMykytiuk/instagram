@@ -12,7 +12,8 @@
         <h1>Instagram</h1>
         <form action="{% url 'login'%}" method="POST">
             {% csrf_token %}
-            {{form.as_p}}
+            {{ form.login.label_tag }} {{ form.login }}
+            {{ form.password.label_tag }} {{ form.password }}
             <button type="submit">Увійти</button>
         </form>
 <!--        <div class="or">АБО</div>-->
