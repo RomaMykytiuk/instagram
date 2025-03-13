@@ -40,9 +40,9 @@ class LoginForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
-        login = cleaned_data.get("login")
+        login_input = cleaned_data.get("login")
         password = cleaned_data.get("password")
-        user = authenticate(username=login, password=password)
+        user = authenticate(username=login_input, password=password)
         if user is None:
             raise ValidationError('невірний username/email  або пароль')
         self.user = user

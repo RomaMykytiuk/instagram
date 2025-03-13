@@ -134,6 +134,7 @@ MESSAGE_TAGS ={
     messages.SUCCESS: 'success'
 
 }
+
 AUTHENTICATION_BACKENDS = [
     "members.backends.EmailOrUsernameModelBackend",
     "django.contrib.auth.backends.ModelBackend",
