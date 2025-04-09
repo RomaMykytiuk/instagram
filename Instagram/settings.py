@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'members'
-
 ]
 
 MIDDLEWARE = [
@@ -136,9 +135,10 @@ MESSAGE_TAGS ={
 }
 
 AUTHENTICATION_BACKENDS = [
-    "members.backends.EmailOrUsernameModelBackend",
     "django.contrib.auth.backends.ModelBackend",
+    "members.authentication.EmailOrUsernameModelBackend",
 ]
+
 
 AUTH_USER_MODEL = "members.User"
 
