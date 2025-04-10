@@ -5,7 +5,7 @@ from .forms import UserRegistrationForm, LoginForm, PostForm
 from .models import Post, User, Image
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.auth import login
+from django.contrib.auth import login,logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -130,3 +130,14 @@ def edit_profile(request):
         form = ProfileForm(instance=profile_obj)
 
     return render(request, 'edit_profile.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect("login")
+
+
+
+
+
+
